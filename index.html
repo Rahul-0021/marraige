@@ -216,7 +216,7 @@
             background: rgba(25, 10, 5, 0.75);
             color: #fff;
             border-color: rgba(212, 175, 55, 0.5);
-            padding: 2.5rem 1.5rem; /* Slightly tighter padding on mobile */
+            padding: 2.5rem 1.5rem;
         }
 
         .god-text {
@@ -235,14 +235,14 @@
             color: #fcf8f2;
         }
 
-        /* FIXED NAME SIZING FOR MOBILE */
+        /* Hero Names */
         .names {
-            font-size: clamp(2rem, 7vw, 3.2rem); /* Automatically scales between 2rem and 3.2rem */
+            font-size: clamp(2rem, 7vw, 3.2rem);
             margin: 0.5rem 0;
             color: var(--gold);
             line-height: 1.2;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            white-space: nowrap; /* Prevents awkward wrapping */
+            white-space: nowrap;
         }
 
         .weds {
@@ -283,23 +283,28 @@
             margin-top: 5px;
         }
 
+        /* Standardized Couple Names for Invitation Section */
+        .couple-name {
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            color: var(--primary-color);
+            margin-bottom: 0;
+        }
+
         /* FCB Theme Elements */
         .groom-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+            gap: 12px;
+            margin-bottom: 0.5rem;
         }
 
-        .groom-name {
+        .barca-underline {
             position: relative;
             display: inline-block;
-            color: var(--primary-color);
-            font-size: clamp(1.4rem, 5vw, 1.8rem);
         }
         
-        .groom-name::after {
+        .barca-underline::after {
             content: '';
             position: absolute;
             bottom: -6px;
@@ -456,16 +461,20 @@
             <div class="overlay">
                 <h2 class="cinzel" style="color: var(--primary-color); margin-bottom: 2rem;">The Bride & Groom</h2>
                 
-                <!-- Groom with Local FCB Logo -->
+                <!-- Groom with Perfectly Aligned FCB Elements -->
                 <div class="groom-wrapper">
-                    <h3 class="cinzel groom-name">Dr. S. Santhru</h3>
-                    <!-- Make sure you upload a logo file named barca.png to GitHub! -->
-                    <img src="barca.png" alt="FCB" class="barca-logo">
+                    <div class="barca-underline">
+                        <h3 class="cinzel couple-name">Dr. S. Santhru</h3>
+                    </div>
+                    <!-- Make sure you have uploaded barca.png to GitHub -->
+                    <img src="barca.png" alt="FCB Logo" class="barca-logo">
                 </div>
                 <p class="parents">Son of S. Sekar & S. Bakyalakshmi</p>
                 
-                <!-- Bride -->
-                <h3 class="cinzel" style="color: var(--primary-color); margin-top: 1.5rem; margin-bottom: 0.5rem;">R. Preethi</h3>
+                <!-- Bride with exactly matching styling -->
+                <div style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                    <h3 class="cinzel couple-name">R. Preethi</h3>
+                </div>
                 <p class="parents">Daughter of R. Raja & R. Rajalakshmi</p>
 
                 <p style="margin-top: 2rem; font-style: italic; line-height: 1.8;">
