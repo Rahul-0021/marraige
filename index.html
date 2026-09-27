@@ -69,7 +69,7 @@
         .door-open .door-left { transform: translateX(-100%); }
         .door-open .door-right { transform: translateX(100%); }
         
-        /* --- NEW INVITATION OVERLAY ON DOORS (Exactly like the photo) --- */
+        /* --- INVITATION OVERLAY ON DOORS --- */
         .invitation-text-overlay {
             position: absolute;
             top: 50%;
@@ -81,7 +81,7 @@
             width: 90%;
             max-width: 400px;
             transition: opacity 0.5s ease;
-            pointer-events: none; /* Allows the click to pass through to the doors */
+            pointer-events: none;
         }
 
         #door-container.door-open .invitation-text-overlay {
@@ -216,6 +216,7 @@
             background: rgba(25, 10, 5, 0.75);
             color: #fff;
             border-color: rgba(212, 175, 55, 0.5);
+            padding: 2.5rem 1.5rem; /* Slightly tighter padding on mobile */
         }
 
         .god-text {
@@ -234,12 +235,14 @@
             color: #fcf8f2;
         }
 
+        /* FIXED NAME SIZING FOR MOBILE */
         .names {
-            font-size: 3.2rem;
+            font-size: clamp(2rem, 7vw, 3.2rem); /* Automatically scales between 2rem and 3.2rem */
             margin: 0.5rem 0;
             color: var(--gold);
             line-height: 1.2;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            white-space: nowrap; /* Prevents awkward wrapping */
         }
 
         .weds {
@@ -253,28 +256,28 @@
         .countdown-wrapper {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 2rem;
         }
 
         .time-box {
             background: rgba(255,255,255,0.1);
             border: 1px solid var(--gold);
-            padding: 10px;
+            padding: 10px 5px;
             border-radius: 8px;
-            min-width: 65px;
+            min-width: 60px;
             backdrop-filter: blur(4px);
         }
 
         .time-box span {
             display: block;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             font-family: 'Cinzel', serif;
         }
 
         .time-box p {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 5px;
@@ -286,13 +289,14 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 0.2rem;
+            margin-bottom: 1rem;
         }
 
         .groom-name {
             position: relative;
             display: inline-block;
             color: var(--primary-color);
+            font-size: clamp(1.4rem, 5vw, 1.8rem);
         }
         
         .groom-name::after {
@@ -309,15 +313,6 @@
         .barca-logo {
             width: 25px;
             height: auto;
-        }
-
-        .barca-motto {
-            font-size: 0.75rem;
-            color: var(--barca-blue);
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
         }
 
         .parents {
@@ -417,7 +412,6 @@
 
     <!-- Opening Doors -->
     <div id="door-container" onclick="openDoors()">
-        <!-- New overlay that matches the requested photo exactly -->
         <div class="invitation-text-overlay">
             <div class="ornament">
                 <div class="ornament-diamond"></div>
@@ -442,7 +436,6 @@
             <div class="overlay">
                 <p class="god-text cinzel">வாழ்த்துவாய் ஸ்ரீ அங்காள ஈஸ்வரி துணை</p>
                 
-                <!-- The exact quote from the video -->
                 <p class="opening-quote">"Two hearts found their way to each other, and from this moment on, every road leads home."</p>
                 
                 <h1 class="names">Dr. S. Santhru</h1>
@@ -463,13 +456,12 @@
             <div class="overlay">
                 <h2 class="cinzel" style="color: var(--primary-color); margin-bottom: 2rem;">The Bride & Groom</h2>
                 
-                <!-- Groom with EXPLICIT FC Barcelona theme -->
+                <!-- Groom with Local FCB Logo -->
                 <div class="groom-wrapper">
                     <h3 class="cinzel groom-name">Dr. S. Santhru</h3>
-                    <!-- External link to official FCB crest SVG -->
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/200px-FC_Barcelona_%28crest%29.svg.png" alt="FC Barcelona Logo" class="barca-logo">
+                    <!-- Make sure you upload a logo file named barca.png to GitHub! -->
+                    <img src="barca.png" alt="FCB" class="barca-logo">
                 </div>
-                <p class="barca-motto">Més que un club</p>
                 <p class="parents">Son of S. Sekar & S. Bakyalakshmi</p>
                 
                 <!-- Bride -->
@@ -495,7 +487,6 @@
                     <p style="font-size: 1.1rem; line-height: 1.5;">Shri Badrakali Amman Kovil Mahal,<br>Kadamalaikundu</p>
                 </div>
                 
-                <!-- GMaps Link -->
                 <a href="https://maps.app.goo.gl/7S956Y6ppcjT7uw88" target="_blank" class="btn">Get Directions</a>
             </div>
         </section>
@@ -507,7 +498,6 @@
                 <p style="margin-top: 1rem; font-style: italic;">Discover the beauty of the region while you celebrate with us. Click to see locations.</p>
                 
                 <div class="explore-grid">
-                    <!-- Vaigai Dam -->
                     <a href="https://share.google/zBJFHENTtuhR6rAIY" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="images.jpg" alt="Vaigai Dam">
@@ -515,7 +505,6 @@
                         </div>
                     </a>
                     
-                    <!-- Suruli Falls -->
                     <a href="https://share.google/bK0YG7VVakAJlJhpx" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="suruli-waterfalls1-1.jpg" alt="Suruli Falls">
@@ -523,7 +512,6 @@
                         </div>
                     </a>
 
-                    <!-- Varusanadu Hills -->
                     <a href="https://share.google/lFPoIOlF1W4FbnSPw" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="FV022IXaUAAUoeC.webp" alt="Varusanadu Hills Valley View">
@@ -531,7 +519,6 @@
                         </div>
                     </a>
 
-                    <!-- Meghamalai -->
                     <a href="https://share.google/XqJrFTYxMv43YXDCg" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="tourist-places-in-megamalai9.png" alt="Meghamalai">
@@ -545,7 +532,6 @@
         <!-- Thank you / Couple Photo -->
         <section id="thank-you">
             <div class="overlay">
-                <!-- User's Gemini Generated Couple Photo -->
                 <img src="Gemini_Generated_Image_igyoyrigyoyrigyo.png" alt="Santhru and Preethi" class="couple-img">
                 
                 <h2 class="cinzel" style="color: var(--primary-color); margin-bottom: 1rem;">Thank You</h2>
@@ -557,16 +543,13 @@
     </div>
 
     <script>
-        // Open doors function
         function openDoors() {
             document.getElementById('door-container').classList.add('door-open');
-            // Hide the doors completely after animation ends to allow scrolling clicks
             setTimeout(() => {
                 document.getElementById('door-container').style.display = 'none';
             }, 2000);
         }
 
-        // Countdown Timer to Oct 25, 2026, 10:45 AM
         const countDownDate = new Date("Oct 25, 2026 10:45:00").getTime();
 
         const x = setInterval(function() {
@@ -583,7 +566,6 @@
             document.getElementById("mins").innerHTML = minutes < 10 ? '0' + minutes : minutes;
             document.getElementById("secs").innerHTML = seconds < 10 ? '0' + seconds : seconds;
 
-            // If the countdown is finished
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("days").innerHTML = "00";
