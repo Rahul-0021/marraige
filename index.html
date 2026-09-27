@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santhru Weds Preethi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8b0000;
+            --gold: #d4af37;
+            --barca-blue: #004d98;
+            --barca-red: #a50044;
+            --text-dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #fdfaf6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* --- DOOR ANIMATION --- */
+        #door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            display: flex;
+            background-color: #1a0b00;
+            overflow: hidden;
+            transition: visibility 0s 2s;
+            cursor: pointer;
+        }
+
+        .door {
+            width: 50%;
+            height: 100%;
+            background-image: url('download (1).jpg');
+            background-size: 200% 100%;
+            background-repeat: no-repeat;
+            transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            position: relative;
+        }
+
+        .door-left {
+            background-position: left center;
+            transform-origin: left;
+        }
+
+        .door-right {
+            background-position: right center;
+            transform-origin: right;
+        }
+
+        .door-open .door-left { transform: translateX(-100%); }
+        .door-open .door-right { transform: translateX(100%); }
+        
+        /* --- INVITATION OVERLAY ON DOORS --- */
+        .invitation-text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            text-align: center;
+            color: #fff;
+            width: 90%;
+            max-width: 400px;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #door-container.door-open .invitation-text-overlay {
+            opacity: 0;
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            height: 1px;
+            background: var(--gold);
+            width: 30px;
+            margin: 0 15px;
+        }
+        .ornament-diamond {
+            width: 8px;
+            height: 8px;
+            background: none;
+            border: 1.5px solid var(--gold);
+            transform: rotate(45deg);
+        }
+
+        .with-hearts {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--gold);
+            width: 30px;
+            margin: 0 auto 20px auto;
+        }
+
+        .invited-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            font-weight: normal;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .celebrate-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #e5c158;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .intro-date {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            font-weight: bold;
+            color: #e5c158;
+        }
+
+        .open-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: pulse-soft 2s infinite;
+        }
+
+        @keyframes pulse-soft {
+            0% { transform: scale(0.98); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,255,255,0.4); }
+            100% { transform: scale(0.98); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        }
+
+        /* --- MAIN CONTENT --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.5s ease 0.5s;
+        }
+
+        .door-open ~ #main-content { opacity: 1; }
+
+        section {
+            min-height: 100vh;
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 95%;
+            margin: 0 auto;
+            border: 1px solid var(--gold);
+        }
+
+        /* --- SECTION BACKGROUNDS --- */
+        #hero { background-image: url('South Indian Temple Heritage _ Traditional Architecture & Wedding Inspiration.jpg'); }
+        #invitation { background-image: url('download (4).jpg'); }
+        #event { background-image: url('download.jpg'); }
+        #explore { background-image: url('asthetic template.jpg'); }
+        #thank-you { background-image: url('download (2).jpg'); }
+
+        /* Hero Customization */
+        #hero .overlay {
+            background: rgba(25, 10, 5, 0.75);
+            color: #fff;
+            border-color: rgba(212, 175, 55, 0.5);
+            padding: 2.5rem 1.5rem;
+        }
+
+        .god-text {
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .opening-quote {
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            padding: 0 10px;
+            color: #fcf8f2;
+        }
+
+        .names {
+            font-size: clamp(2rem, 7vw, 3.2rem);
+            margin: 0.5rem 0;
+            color: var(--gold);
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        .weds {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin: 1rem 0;
+            color: #fff;
+        }
+
+        /* Countdown */
+        .countdown-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .time-box {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--gold);
+            padding: 10px 5px;
+            border-radius: 8px;
+            min-width: 60px;
+            backdrop-filter: blur(4px);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+        }
+
+        .time-box p {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .couple-name {
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            color: var(--primary-color);
+            margin-bottom: 0;
+        }
+
+        /* FCB Theme Elements */
+        .groom-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .barca-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .barca-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--barca-blue) 50%, var(--barca-red) 50%);
+            border-radius: 2px;
+        }
+
+        .barca-logo {
+            width: 25px;
+            height: auto;
+        }
+
+        .parents {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        /* Event */
+        .date-large {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .venue-details h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            border: 1px solid var(--gold);
+        }
+
+        .btn:hover {
+            background-color: var(--gold);
+            color: #000;
+        }
+
+        /* Explore Grid */
+        #explore .overlay { max-width: 900px; }
+        
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .place-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .place-card {
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .place-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .place-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .place-card h4 {
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Couple Photo Section */
+        .couple-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            border: 3px solid var(--gold);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Opening Doors -->
+    <div id="door-container" onclick="openDoors()">
+        <div class="invitation-text-overlay">
+            <div class="ornament">
+                <div class="ornament-diamond"></div>
+            </div>
+            <p class="with-hearts">WITH ALL OUR HEARTS</p>
+            <div class="divider"></div>
+            <h1 class="invited-text">You are invited</h1>
+            <p class="celebrate-text">to celebrate with us</p>
+            <p class="intro-date">25 &middot; 10 &middot; 2026</p>
+            <div class="open-btn">OPEN INVITATION</div>
+        </div>
+
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="overlay">
+                <p class="god-text cinzel">வாழ்த்துவாய் ஸ்ரீ அங்காள ஈஸ்வரி துணை</p>
+                
+                <p class="opening-quote">"Two hearts found their way to each other, and from this moment on, every road leads home."</p>
+                
+                <h1 class="names">Dr. S. Santhru</h1>
+                <p class="weds">Weds</p>
+                <h1 class="names">R. Preethi</h1>
+                
+                <div class="countdown-wrapper">
+                    <div class="time-box"><span id="days">00</span><p>Days</p></div>
+                    <div class="time-box"><span id="hours">00</span><p>Hours</p></div>
+                    <div class="time-box"><span id="mins">00</span><p>Mins</p></div>
+                    <div class="time-box"><span id="secs">00</span><p>Secs</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Invitation Section -->
+        <section id="invitation">
+            <div class="overlay">
+                <h2 class="cinzel" style="color: var(--primary-color); margin-bottom: 2rem;">The Bride & Groom</h2>
+                
+                <div class="groom-wrapper">
+                    <div class="barca-underline">
+                        <h3 class="cinzel couple-name">Dr. S. Santhru</h3>
+                    </div>
+                    <img src="barca.png" alt="FCB Logo" class="barca-logo">
+                </div>
+                <p class="parents">Son of S. Sekar & S. Bakyalakshmi</p>
+                
+                <div style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                    <h3 class="cinzel couple-name">R. Preethi</h3>
+                </div>
+                <p class="parents">Daughter of R. Raja & R. Rajalakshmi</p>
+
+                <p style="margin-top: 2rem; font-style: italic; line-height: 1.8;">
+                    We request the honour of your gracious presence & blessings on the auspicious occasion of our wedding ceremony.
+                </p>
+            </div>
+        </section>
+
+        <!-- Event Details Section -->
+        <section id="event">
+            <div class="overlay">
+                <h2 class="cinzel">The Wedding</h2>
+                <div class="date-large cinzel">25 | OCT | 2026</div>
+                <h3 class="cinzel" style="color: #555;">Sunday</h3>
+                <p style="margin-top: 0.5rem; font-weight: 600;">Between 10.45 A.M - 12.00 P.M</p>
+
+                <div class="venue-details">
+                    <h3 class="cinzel">VENUE</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.5;">Shri Badrakali Amman Kovil Mahal,<br>Kadamalaikundu</p>
+                </div>
+                
+                <a href="https://maps.app.goo.gl/7S956Y6ppcjT7uw88" target="_blank" class="btn">Get Directions</a>
+            </div>
+        </section>
+
+        <!-- Travel & Explore Section -->
+        <section id="explore">
+            <div class="overlay">
+                <h2 class="cinzel" style="color: var(--primary-color);">Places to Explore</h2>
+                <p style="margin-top: 1rem; font-style: italic;">Discover the beauty of the region while you celebrate with us. Click to see locations.</p>
+                
+                <div class="explore-grid">
+                    <a href="https://share.google/zBJFHENTtuhR6rAIY" target="_blank" class="place-link">
+                        <div class="place-card">
+                            <img src="images.jpg" alt="Vaigai Dam">
+                            <h4 class="cinzel">Vaigai Dam</h4>
+                        </div>
+                    </a>
+                    
+                    <a href="https://share.google/bK0YG7VVakAJlJhpx" target="_blank" class="place-link">
+                        <div class="place-card">
+                            <img src="suruli-waterfalls1-1.jpg" alt="Suruli Falls">
+                            <h4 class="cinzel">Suruli Falls</h4>
+                        </div>
+                    </a>
+
+                    <a href="https://share.google/lFPoIOlF1W4FbnSPw" target="_blank" class="place-link">
+                        <div class="place-card">
+                            <img src="FV022IXaUAAUoeC.webp" alt="Varusanadu Hills Valley View">
+                            <h4 class="cinzel">Varusanadu Valley</h4>
+                        </div>
+                    </a>
+
+                    <a href="https://share.google/XqJrFTYxMv43YXDCg" target="_blank" class="place-link">
+                        <div class="place-card">
+                            <img src="tourist-places-in-megamalai9.png" alt="Meghamalai">
+                            <h4 class="cinzel">Meghamalai</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thank you / Couple Photo -->
+        <section id="thank-you">
+            <div class="overlay">
+                <img src="Gemini_Generated_Image_igyoyrigyoyrigyo.png" alt="Santhru and Preethi" class="couple-img">
+                
+                <h2 class="cinzel" style="color: var(--primary-color); margin-bottom: 1rem;">Thank You</h2>
+                <p style="font-style: italic; line-height: 1.6;">Your presence and blessings will make our celebration complete. We look forward to welcoming you!</p>
+                <p style="margin-top: 1.5rem; font-family: 'Cinzel', serif; font-weight: bold;">With Love,<br>Santhru & Preethi</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- ADDED MEMORY FIX HERE ---
+        // Check if the door was already opened during this session
+        document.addEventListener("DOMContentLoaded", function() {
+            if (sessionStorage.getItem("doorsOpened") === "true") {
+                // If they already opened it, hide the doors immediately
+                document.getElementById('door-container').style.display = 'none';
+                document.getElementById('door-container').classList.add('door-open');
+            }
+        });
+
+        function openDoors() {
+            document.getElementById('door-container').classList.add('door-open');
+            
+            // Save to memory so if they click back from Google Maps, it stays open!
+            sessionStorage.setItem("doorsOpened", "true");
+
+            setTimeout(() => {
+                document.getElementById('door-container').style.display = 'none';
+            }, 2000);
+        }
+
+        const countDownDate = new Date("Oct 25, 2026 10:45:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
+            document.getElementById("mins").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("secs").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("mins").innerHTML = "00";
+                document.getElementById("secs").innerHTML = "00";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
