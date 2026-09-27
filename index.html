@@ -491,6 +491,7 @@
                     <p style="font-size: 1.1rem; line-height: 1.5;">Shri Badrakali Amman Kovil Mahal,<br>Kadamalaikundu</p>
                 </div>
                 
+                <!-- Google Maps app link -->
                 <a href="https://maps.app.goo.gl/7S956Y6ppcjT7uw88" target="_blank" class="btn">Get Directions</a>
             </div>
         </section>
@@ -502,28 +503,29 @@
                 <p style="margin-top: 1rem; font-style: italic;">Discover the beauty of the region while you celebrate with us. Click to see locations.</p>
                 
                 <div class="explore-grid">
-                    <a href="https://share.google/zBJFHENTtuhR6rAIY" target="_blank" class="place-link">
+                    <!-- Standard Google Maps links that won't trap the back button -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=Vaigai+Dam+Tamil+Nadu" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="images.jpg" alt="Vaigai Dam">
                             <h4 class="cinzel">Vaigai Dam</h4>
                         </div>
                     </a>
                     
-                    <a href="https://share.google/bK0YG7VVakAJlJhpx" target="_blank" class="place-link">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Suruli+Falls+Tamil+Nadu" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="suruli-waterfalls1-1.jpg" alt="Suruli Falls">
                             <h4 class="cinzel">Suruli Falls</h4>
                         </div>
                     </a>
 
-                    <a href="https://share.google/lFPoIOlF1W4FbnSPw" target="_blank" class="place-link">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Varusanadu+Tamil+Nadu" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="FV022IXaUAAUoeC.webp" alt="Varusanadu Hills Valley View">
                             <h4 class="cinzel">Varusanadu Valley</h4>
                         </div>
                     </a>
 
-                    <a href="https://share.google/XqJrFTYxMv43YXDCg" target="_blank" class="place-link">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Meghamalai+Tamil+Nadu" target="_blank" class="place-link">
                         <div class="place-card">
                             <img src="tourist-places-in-megamalai9.png" alt="Meghamalai">
                             <h4 class="cinzel">Meghamalai</h4>
@@ -547,7 +549,6 @@
     </div>
 
     <script>
-        // --- ADDED MEMORY FIX HERE ---
         // Check if the door was already opened during this session
         document.addEventListener("DOMContentLoaded", function() {
             if (sessionStorage.getItem("doorsOpened") === "true") {
